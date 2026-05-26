@@ -1,0 +1,217 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | RYV Management</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ryvPurple: '#6B21A8', 
+                        ryvYellow: '#FACC15', 
+                        ryvOrange: '#FB923C', 
+                        ryvLightGray: '#F3F4F6',
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .sidebar-link:hover { background-color: rgba(250, 204, 21, 0.1); color: #FACC15; }
+        .active-link { background-color: #FACC15; color: #6B21A8 !important; }
+    </style>
+</head>
+<body class="bg-ryvLightGray flex h-screen overflow-hidden">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-ryvPurple text-white hidden md:flex flex-col shadow-2xl">
+        <div class="p-6 flex items-center gap-3">
+            <img src="logo.jpeg" alt="RYV Logo" class="w-10 h-10 rounded-full border-2 border-ryvYellow">
+            <span class="font-bold text-xl tracking-tight">RYV <span class="text-ryvYellow">Admin</span></span>
+        </div>
+
+        <nav class="flex-1 px-4 space-y-2 mt-4">
+            <a href="#" class="sidebar-link active-link flex items-center gap-3 p-3 rounded-xl transition-all">
+                <i class="fa-solid fa-users"></i> User Management
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 p-3 rounded-xl transition-all text-gray-300">
+                <i class="fa-solid fa-chart-line"></i> Impact Stats
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 p-3 rounded-xl transition-all text-gray-300">
+                <i class="fa-solid fa-bullhorn"></i> Campaigns
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 p-3 rounded-xl transition-all text-gray-300">
+                <i class="fa-solid fa-gear"></i> Settings
+            </a>
+        </nav>
+
+        <div class="p-6 border-t border-purple-800">
+            <a href="admin-login.html" class="flex items-center gap-3 p-3 rounded-xl bg-red-500 hover:bg-red-600 transition-all font-bold">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-1 flex flex-col overflow-hidden">
+        
+        <!-- Top Header -->
+        <header class="bg-white shadow-sm p-4 flex justify-between items-center px-8">
+            <h2 class="text-2xl font-bold text-ryvPurple">Member Directory</h2>
+            <div class="flex items-center gap-4">
+                <div class="text-right hidden sm:block">
+                    <p class="text-sm font-bold text-gray-800">Administrator</p>
+                    <p class="text-xs text-gray-500">Super User</p>
+                </div>
+                <img src="8.jpeg" class="w-10 h-10 rounded-full border-2 border-ryvPurple">
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="flex-1 overflow-y-auto p-8">
+            
+            <!-- Stats Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-ryvPurple">
+                    <p class="text-gray-500 text-sm">Total Registered</p>
+                    <h3 id="totalUsers" class="text-3xl font-bold text-ryvPurple">0</h3>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-ryvYellow">
+                    <p class="text-gray-500 text-sm">New This Month</p>
+                    <h3 class="text-3xl font-bold text-ryvPurple">12</h3>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-l-4 border-ryvOrange">
+                    <p class="text-gray-500 text-sm">Active Advocates</p>
+                    <h3 class="text-3xl font-bold text-ryvPurple">45</h3>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+                <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+                    <h3 class="font-bold text-ryvPurple text-xl">Registered Youth Members</h3>
+                    <button onclick="loadUsers()" class="text-ryvPurple hover:text-ryvOrange transition-colors">
+                        <i class="fa-solid fa-rotate"></i> Refresh List
+                    </button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="bg-ryvLightGray text-ryvPurple uppercase text-xs font-bold">
+                            <tr>
+                                <th class="px-6 py-4">Full Name</th>
+                                <th class="px-6 py-4">Email Address</th>
+                                <th class="px-6 py-4">Role</th>
+                                <th class="px-6 py-4">Joined Date</th>
+                                <th class="px-6 py-4 text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="userTable" class="divide-y divide-gray-100">
+                            <!-- Data will be injected here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="modal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-2xl max-w-sm w-full text-center">
+            <div class="w-16 h-16 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                <i class="fa-solid fa-trash"></i>
+            </div>
+            <h3 class="text-xl font-bold mb-2">Remove Member?</h3>
+            <p class="text-gray-500 mb-6">This action cannot be undone. This user will be permanently deleted.</p>
+            <div class="flex gap-3">
+                <button onclick="closeModal()" class="flex-1 py-2 bg-gray-200 rounded-lg font-semibold">Cancel</button>
+                <button id="confirmDelete" class="flex-1 py-2 bg-red-600 text-white rounded-lg font-semibold">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let userToDelete = null;
+
+        async function loadUsers() {
+            const table = document.getElementById('userTable');
+            const totalUsersEl = document.getElementById('totalUsers');
+            
+            table.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-gray-400">Loading members...</td></tr>`;
+
+            try {
+                const response = await fetch('http://localhost:5000/api/users');
+                const users = await response.json();
+                
+                totalUsersEl.innerText = users.length;
+
+                if (users.length === 0) {
+                    table.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-gray-400">No members found in database.</td></tr>`;
+                    return;
+                }
+
+                table.innerHTML = users.map(u => `
+                    <tr class="hover:bg-ryvLightGray transition-colors">
+                        <td class="px-6 py-4 font-medium text-gray-800">${u.fullName}</td>
+                        <td class="px-6 py-4 text-gray-600">${u.email}</td>
+                        <td class="px-6 py-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold ${u.role === 'member' ? 'bg-blue-100 text-blue-700' : 'bg-ryvYellow text-ryvPurple'}">
+                                ${u.role || 'member'}
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 text-gray-500 text-sm">${new Date(u.createdAt).toLocaleDateString()}</td>
+                        <td class="px-6 py-4 text-center">
+                            <button onclick="openModal('${u._id}')" class="text-red-500 hover:text-red-700 transition-colors p-2">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                table.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-red-500">Error connecting to server. Please restart Node.js server.</td></tr>`;
+            }
+        }
+
+        function openModal(id) {
+            userToDelete = id;
+            document.getElementById('modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+            userToDelete = null;
+        }
+
+        document.getElementById('confirmDelete').addEventListener('click', async () => {
+            if (!userToDelete) return;
+            
+            try {
+                const res = await fetch(`http://localhost:5000/api/users/${userToDelete}`, { method: 'DELETE' });
+                if(res.ok) {
+                    closeModal();
+                    loadUsers();
+                }
+            } catch (e) {
+                alert("Error deleting user");
+            }
+        });
+
+        // Initial Load
+        loadUsers();
+    </script>
+</body>
+</html>

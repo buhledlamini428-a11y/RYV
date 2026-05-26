@@ -1,0 +1,185 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Admin Access | RYV Management</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ryvPurple: '#6B21A8', 
+                        ryvYellow: '#FACC15', 
+                        ryvOrange: '#FB923C', 
+                        ryvLightGray: '#F3F4F6',
+                    },
+                    fontFamily: {
+                        poppins: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .admin-bg {
+            background: linear-gradient(135deg, #4C1D95 0%, #6B21A8 50%, #8B5CF6 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .input-glow:focus {
+            box-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
+            border-color: #FACC15;
+        }
+    </style>
+</head>
+<body class="admin-bg min-h-screen flex items-center justify-center p-4">
+
+    <!-- Login Container -->
+    <div class="w-full max-w-md relative">
+        <!-- Decorative Background Glow -->
+        <div class="absolute -top-20 -left-20 w-64 h-64 bg-ryvYellow rounded-full filter blur-3xl opacity-20"></div>
+        <div class="absolute -bottom-20 -right-20 w-64 h-64 bg-ryvOrange rounded-full filter blur-3xl opacity-20"></div>
+
+        <!-- Login Card -->
+        <div class="glass-card rounded-3xl shadow-2xl overflow-hidden relative z-10">
+            
+            <!-- Top Accent Bar -->
+            <div class="h-2 bg-gradient-to-r from-ryvYellow via-ryvOrange to-ryvPurple w-full"></div>
+
+            <div class="p-10">
+                <!-- Logo & Header -->
+                <div class="text-center mb-10">
+                    <div class="flex justify-center mb-4">
+                        <div class="relative">
+                            <img src="logo.jpeg" alt="RYV Logo" class="w-16 h-16 rounded-full border-4 border-ryvPurple shadow-lg">
+                            <div class="absolute -bottom-1 -right-1 bg-ryvYellow text-ryvPurple text-[10px] font-bold px-1 rounded border border-ryvPurple">ADMIN</div>
+                        </div>
+                    </div>
+                    <h1 class="text-3xl font-bold text-ryvPurple tracking-tight">RYV Portal</h1>
+                    <p class="text-gray-500 mt-2 text-sm">Secure Management Access</p>
+                </div>
+
+                <!-- Login Form -->
+                <form id="loginForm" class="space-y-6">
+                    
+                    <!-- Username Field -->
+                    <div class="relative">
+                        <label class="block text-xs font-bold text-ryvPurple uppercase tracking-wider mb-1 ml-1">Administrator Username</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                <i class="fa-solid fa-user-shield"></i>
+                            </span>
+                            <input type="text" id="username" required 
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-100 rounded-xl input-glow outline-none transition-all text-gray-700" 
+                                placeholder="Enter admin username">
+                        </div>
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="relative">
+                        <label class="block text-xs font-bold text-ryvPurple uppercase tracking-wider mb-1 ml-1">Access Password</label>
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
+                            <input type="password" id="password" required 
+                                class="w-full pl-10 pr-4 py-3 border-2 border-gray-100 rounded-xl input-glow outline-none transition-all text-gray-700" 
+                                placeholder="••••••••">
+                        </div>
+                    </div>
+
+                    <!-- Remember Me & Forgot -->
+                    <div class="flex items-center justify-between text-xs">
+                        <label class="flex items-center gap-2 cursor-pointer text-gray-600">
+                            <input type="checkbox" class="rounded text-ryvPurple focus:ring-ryvPurple">
+                            Remember this device
+                        </label>
+                        <a href="#" class="text-ryvPurple font-semibold hover:text-ryvOrange transition-colors">Forgot Access?</a>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button type="submit" id="submitBtn" 
+                        class="w-full bg-ryvPurple hover:bg-purple-800 text-white font-bold py-4 rounded-xl shadow-lg transition-all transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3">
+                        <span>Enter Dashboard</span>
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    </button>
+                </form>
+
+                <!-- Footer Link -->
+                <div class="mt-8 text-center">
+                    <a href="index.html" class="text-gray-400 text-sm hover:text-ryvPurple transition-colors flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-circle-chevron-left"></i> Return to RYV Homepage
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Message Toast -->
+    <div id="errorToast" class="fixed bottom-8 right-8 hidden bg-red-600 text-white px-6 py-4 rounded-2xl shadow-2xl font-medium animate-bounce z-50 flex items-center gap-3">
+        <i class="fa-solid fa-circle-exclamation text-xl"></i>
+        <span>Invalid Admin Credentials. Access Denied.</span>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const errorToast = document.getElementById('errorToast');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin"></i> Authenticating...`;
+
+            const credentials = {
+                username: document.getElementById('username').value,
+                password: document.getElementById('password').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:5000/api/admin-login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(credentials)
+                });
+
+                if (response.ok) {
+                    // Redirect to the updated Admin Dashboard
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    // Fail: Show error toast
+                    errorToast.classList.remove('hidden');
+                    setTimeout(() => {
+                        errorToast.classList.add('hidden');
+                    }, 4000);
+                    
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<span>Enter Dashboard</span> <i class="fa-solid fa-arrow-right-to-bracket"></i>`;
+                }
+
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Critical Error: Server not responding. Please ensure Node.js is running.");
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<span>Enter Dashboard</span> <i class="fa-solid fa-arrow-right-to-bracket"></i>`;
+            }
+        });
+    </script>
+</body>
+</html>
