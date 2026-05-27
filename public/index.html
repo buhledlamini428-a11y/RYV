@@ -38,6 +38,27 @@
         .hero-overlay { background: linear-gradient(rgba(107, 33, 168, 0.7), rgba(0, 0, 0, 0.6)); }
         .card-hover { transition: all 0.3s ease; }
         .card-hover:hover { transform: translateY(-10px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+
+            /* Pulse Animation for the Chairperson's Border */
+    @keyframes pulse-border {
+        0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.7); }
+        70% { box-shadow: 0 0 0 15px rgba(250, 204, 21, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
+    }
+    .animate-pulse-border {
+        animation: pulse-border 2s infinite;
+    }
+    .committee-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .committee-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 25px -5px rgba(107, 33, 168, 0.2);
+    }
+    .connector-line {
+        background: linear-gradient(to bottom, #6B21A8, #FACC15);
+    }
+
     </style>
 </head>
 <body class="bg-ryvLightGray text-gray-800">
@@ -150,19 +171,19 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
                 <div data-aos="fade-up">
-                    <div class="text-4xl md:text-6xl font-bold text-ryvYellow mb-2 counter" data-target="5000">0</div>
+                    <div class="text-4xl md:text-6xl font-bold text-ryvYellow mb-2 counter" data-target="0">0</div>
                     <p class="text-lg opacity-80">Youth Reached</p>
                 </div>
                 <div data-aos="fade-up" data-aos-delay="100">
-                    <div class="text-4xl md:text-6xl font-bold text-ryvYellow mb-2 counter" data-target="150">0</div>
+                    <div class="text-4xl md:text-6xl font-bold text-ryvYellow mb-2 counter" data-target="0">0</div>
                     <p class="text-lg opacity-80">Peer Advocates</p>
                 </div>
                 <div data-aos="fade-up" data-aos-delay="200">
-                    <div class="text-4xl md:text-6xl font-bold text-ryvYellow mb-2 counter" data-target="40">0</div>
+                    <div class="text-4xl md:text-6xl font-bold text-ryvYellow mb-2 counter" data-target="0">0</div>
                     <p class="text-lg opacity-80">Campaigns</p>
                 </div>
                 <div data-aos="fade-up" data-aos-delay="300">
-                    <div class="text-4xl md:text-6xl font-bold text-ryvYellow mb-2 counter" data-target="20">0</div>
+                    <div class="text-4xl md:text-6xl font-bold text-ryvYellow mb-2 counter" data-target="0">0</div>
                     <p class="text-lg opacity-80">Partnerships</p>
                 </div>
             </div>
@@ -207,7 +228,7 @@
                 </div>
                 <!-- Program 4 -->
                 <div class="bg-white rounded-2xl overflow-hidden shadow-md card-hover" data-aos="fade-up" data-aos-delay="400">
-                    <img src="11.jpeg" class="w-full h-48 object-cover" alt="Dialogue">
+                    <img src="13.jpeg" class="w-full h-48 object-cover" alt="Dialogue">
                     <div class="p-6">
                         <h3 class="text-xl font-bold text-ryvPurple mb-2">Community Dialogues</h3>
                         <p class="text-gray-600 mb-4">Creating safe spaces for youth to speak with policy makers.</p>
@@ -228,11 +249,10 @@
                 
                 <!-- Testimonial Card 1 (Edit the info inside this block) -->
                 <div class="bg-ryvLightGray p-8 rounded-3xl shadow-sm hover:shadow-md transition-all border-b-4 border-ryvYellow" data-aos="zoom-in" data-aos-delay="100">
-                    <img src="9.jpeg" class="w-20 h-20 rounded-full mx-auto mb-6 border-4 border-ryvPurple" alt="Youth Advocate">
+                    <img src="8.jpeg" class="w-20 h-20 rounded-full mx-auto mb-6 border-4 border-ryvPurple" alt="Youth Advocate">
                     <p class="text-gray-600 italic mb-6 leading-relaxed">
-                        "never let stigma or discrimination define who you are. let your courage, love, and strength shine brighter than hate. walk your journey with pride,peak your truth with power, and remember — hiv doesn’t end your dreams, it strengthens your story. let’s break the silence, support one another.."
-                    </p>
-                    <h4 class="font-bold text-ryvPurple">— Nkosiyenza Mamba, RYV Executive Director and Comms Assistant</h4>
+                      " whatever you believe, you can achieve - regardless of your background, HIV status, or any stigma and discrimination you may face. remember, every extraordinary person was once just an ordinary person, just like you. never let your HIV status define your future or who you are, your potential is limitless."  
+                    <h4 class="font-bold text-ryvPurple">— Mthobisi Mdluli, RYV Managing Director (Founder) and Comms Manager</h4>
                 </div>
 
                 <!-- Testimonial Card 2 (Edit the info inside this block) -->
@@ -245,6 +265,42 @@
                 </div>
 
                 <!-- Testimonial Card 3 (Edit the info inside this block) -->
+                 <div class="bg-ryvLightGray p-8 rounded-3xl shadow-sm hover:shadow-md transition-all border-b-4 border-ryvPurple" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="9.jpeg" class="w-20 h-20 rounded-full mx-auto mb-6 border-4 border-ryvPurple" alt="Youth Advocate">
+                    <p class="text-gray-600 italic mb-6 leading-relaxed">
+                      "never let stigma or discrimination define who you are. let your courage, love, and strength shine brighter than hate. walk your journey with pride,peak your truth with power, and remember — hiv doesn’t end your dreams, it strengthens your story. let’s break the silence, support one another.."
+                    </p>  
+                    </p>
+                    <h4 class="font-bold text-ryvPurple">—  Nkosiyenza Mamba, RYV Executive Director and Comms Assistant </h4>
+                </div>
+                
+
+                 <!-- Testimonial Card 4 (Edit the info inside this block) -->
+                  <div class="bg-ryvLightGray p-8 rounded-3xl shadow-sm hover:shadow-md transition-all border-b-4 border-ryvYellow" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="14.jpeg" class="w-20 h-20 rounded-full mx-auto mb-6 border-4 border-ryvPurple" alt="Youth Advocate">
+                    <p class="text-gray-600 italic mb-6 leading-relaxed">
+                      " Your disability does not define your value, and society's judgment does not limit your future. Keep standing tall resilience always shines brighter than discrimination."
+                    <h4 class="font-bold text-ryvPurple">— Zinhle Msibi, HIV prevention and awareness Ambassador</h4>
+                </div>
+                 
+
+                 <!-- Testimonial Card 5 (Edit the info inside this block) -->
+                <div class="bg-ryvLightGray p-8 rounded-3xl shadow-sm hover:shadow-md transition-all border-b-4 border-ryvOrange" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="15.jpeg" class="w-20 h-20 rounded-full mx-auto mb-6 border-4 border-ryvPurple" alt="Youth Advocate">
+                    <p class="text-gray-600 italic mb-6 leading-relaxed">
+                        " Let get test if u don't know  your  HIV status Let are protect our self from unwanted pregnancy as young mothers"                    </p>
+                    <h4 class="font-bold text-ryvPurple">— Busiswa Dlamini, Young mothers support Coordinator</h4>
+                </div>
+
+                 <!-- Testimonial Card 6 (Edit the info inside this block) -->
+                <div class="bg-ryvLightGray p-8 rounded-3xl shadow-sm hover:shadow-md transition-all border-b-4 border-ryvPurple" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="16.jpeg" class="w-20 h-20 rounded-full mx-auto mb-6 border-4 border-ryvPurple" alt="Youth Advocate">
+                    <p class="text-gray-600 italic mb-6 leading-relaxed">
+                        " whatever negativity comes your way, remember — it can't make you HIV negative, but your strength can make you unstoppable."
+                    </p>
+                    <h4 class="font-bold text-ryvPurple">— Lunga Vilakati, RYV Director of Logistics and Project Assistant</h4>
+                </div>
+                      <!-- Testimonial Card 7 (Edit the info inside this block) -->
                 <div class="bg-ryvLightGray p-8 rounded-3xl shadow-sm hover:shadow-md transition-all border-b-4 border-ryvPurple" data-aos="zoom-in" data-aos-delay="300">
                     <img src="1.jpeg" class="w-20 h-20 rounded-full mx-auto mb-6 border-4 border-ryvPurple" alt="Youth Advocate">
                     <p class="text-gray-600 italic mb-6 leading-relaxed">
@@ -252,12 +308,70 @@
                     </p>
                     <h4 class="font-bold text-ryvPurple">— Simphiwe Vilane, RYV Project Coordinator</h4>
                 </div>
+            </div>
+        </div>
+    </section>
+     <!-- OVERSIGHT COMMITTEE SECTION -->
+    <section class="py-20 bg-ryvLightGray overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-ryvPurple mb-4" data-aos="fade-up">Oversight Committee</h2>
+            <div class="w-20 h-1 bg-ryvOrange mx-auto mb-16"></div>
+
+            <!-- Hierarchical Team Wrapper -->
+            <div class="flex flex-col items-center gap-8">
+                
+                <!-- LEVEL 1: THE CHAIRPERSON (1 Person) -->
+                <div class="relative" data-aos="zoom-in">
+                    <div class="group relative w-48 h-48 md:w-56 md:h-56">
+                        <!-- Animated Ring -->
+                        <div class="absolute inset-0 rounded-full border-4 border-ryvYellow animate-pulse-border group-hover:border-ryvOrange transition-all duration-500"></div>
+                        <img src="8.jpeg" class="w-full h-full rounded-full object-cover border-4 border-white shadow-2xl relative z-10" alt="Chairperson">
+                        <!-- Position Label -->
+                        <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-ryvPurple text-white px-6 py-2 rounded-full whitespace-nowrap shadow-lg font-bold text-sm z-20">
+                            Founder
+                        </div>
+                    </div>
+                    <h3 class="mt-8 text-xl font-bold text-ryvPurple">Mthobisi Mdluli</h3>
+                    <p class="text-gray-500 text-sm italic">RYV Managing Director <br>and Comms Manager</p>
+                </div>
+
+                <!-- Connector Line 1 -->
+                <div class="hidden md:block w-1 h-12 connector-line opacity-60"></div>
+
+                <!-- LEVEL 2: THE EXECUTIVE (1 Person) -->
+                <div class="relative" data-aos="fade-up" data-aos-delay="200">
+                    <div class="group relative w-32 h-32 md:w-40 md:h-40">
+                        <div class="absolute inset-0 rounded-full border-4 border-ryvPurple group-hover:border-ryvYellow transition-all duration-500"></div>
+                        <img src="9.jpeg" class="w-full h-full rounded-full object-cover border-4 border-white shadow-lg relative z-10" alt="Executive">
+                    </div>
+                    <h4 class="mt-4 text-lg font-bold text-ryvPurple">Nkosiyenza <br>Mamba</h4>
+                    <p class="text-ryvOrange font-semibold text-xs uppercase tracking-widest">Executive Director  <br> & Comms Assistant</p>
+                </div>
+
+                <!-- Connector Line 2 -->
+                <div class="hidden md:block w-1 h-12 connector-line opacity-60"></div>
+
+                <!-- LEVEL 3: SPECIALISTS (2 People) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl" data-aos="fade-up" data-aos-delay="400">
+                    <!-- Member 1 -->
+                    <div class="committee-card bg-white p-8 rounded-3xl shadow-sm border-b-4 border-ryvPurple flex flex-col items-center">
+                        <img src="16.jpeg" class="w-24 h-24 rounded-full mb-4 border-2 border-ryvYellow" alt="Specialist">
+                        <h5 class="font-bold text-ryvPurple text-lg">Lunga Vilakati</h5>
+                        <p class="text-gray-400 text-xs uppercase font-bold tracking-wide">Director of Logistics & Project Assistant</p>
+                    </div>
+
+                    <!-- Member 2 -->
+                    <div class="committee-card bg-white p-8 rounded-3xl shadow-sm border-b-4 border-ryvYellow flex flex-col items-center">
+                        <img src="1.jpeg" class="w-24 h-24 rounded-full mb-4 border-2 border-ryvPurple" alt="Specialist">
+                        <h5 class="font-bold text-ryvPurple text-lg">Simphiwe Vilane</h5>
+                        <p class="text-gray-400 text-xs uppercase font-bold tracking-wide">Project Coordinator</p>
+                    </div>
+                </div>
 
             </div>
         </div>
     </section>
-<!--
-    -->
+
             
            
 
@@ -380,6 +494,17 @@
             }
         });
         btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // Add interactive hover effects to committee cards
+    document.querySelectorAll('.committee-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.backgroundColor = '#fdfdfd';
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.backgroundColor = '#ffffff';
+        });
+    });
+
     </script>
 </body>
 </html>
