@@ -154,7 +154,7 @@
             table.innerHTML = `<tr><td colspan="5" class="p-10 text-center text-gray-400">Loading members...</td></tr>`;
 
             try {
-                const response = await fetch('http://localhost:5000/api/users');
+                const response = await fetch('https://ryv.onrender.com/api/users');
                 const users = await response.json();
                 
                 totalUsersEl.innerText = users.length;
