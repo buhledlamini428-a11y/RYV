@@ -118,7 +118,7 @@
         Success! Welcome to the movement.
     </div>
 
-         <script>
+    <script>
         const regForm = document.getElementById('registrationForm');
         const submitBtn = document.getElementById('submitBtn');
         const toast = document.getElementById('toast');
@@ -130,18 +130,14 @@
             submitBtn.disabled = true;
             submitBtn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin"></i> Processing...`;
 
-            // FIX: We map the 'role' from the dropdown to 'memberType' 
-            // because that is what the server.js schema requires.
             const userData = {
                 fullName: document.getElementById('fullName').value,
                 email: document.getElementById('email').value,
-                memberType: document.getElementById('role').value // Mapping 'role' ID to 'memberType' key
+                role: document.getElementById('role').value
             };
 
             try {
-                // FIX: Using relative URL '/api/register' instead of the full Render URL.
-                // This prevents CORS errors and works on both localhost and Render.
-                const response = await fetch('/api/register', {
+                const response = await fetch('https://ryv.onrender.com/api/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -158,7 +154,6 @@
                         window.location.href = 'index.html'; // Redirect to homepage
                     }, 3000);
                 } else {
-                    // Show the actual error from the server (e.g., "Email already registered")
                     alert(result.error || "Something went wrong. Please try again.");
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = `<span>Register Now</span> <i class="fa-solid fa-arrow-right"></i>`;
@@ -166,10 +161,11 @@
 
             } catch (error) {
                 console.error("Error:", error);
-                alert("Could not connect to server. Please ensure the website is fully loaded.");
+                alert("Server is not running. Please start your Node.js server.");
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = `<span>Register Now</span> <i class="fa-solid fa-arrow-right"></i>`;
             }
         });
     </script>
-
+</body>
+</html>
