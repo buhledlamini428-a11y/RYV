@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     role: { type: String, default: 'member' }, // 'member' or 'admin'
     createdAt: { type: Date, default: Date.now }
-});
+},{ strict: false });
 
 const User = mongoose.model('User', userSchema);
 
