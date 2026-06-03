@@ -1,45 +1,59 @@
- require('dotenv').config();
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use(express.static('public')); 
+// Serve static files from 'public' folder
+app.use(express.static(path.join(__dirname, 'public'))); 
+
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log("Connected to MongoDB"))
+    .then(() => console.log("Connected to MongoDB Atlas"))
     .catch(err => console.log("DB Connection Error: ", err));
 
-// User Schema
+// SIMPLIFIED USER SCHEMA
 const userSchema = new mongoose.Schema({
     fullName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    role: { type: String, default: 'member' }, // 'member' or 'admin'
+    memberType: { type: String, required: true }, // This is the "I want to join as" field
     createdAt: { type: Date, default: Date.now }
-},{ strict: false });
+}, { strict: false });
 
 const User = mongoose.model('User', userSchema);
 
-// 1. Registration Route (For Youth/Users)
+// REGISTRATION ROUTE
 app.post('/api/register', async (req, res) => {
     try {
-        const { fullName, email } = req.body;
-        const newUser = new User({ fullName, email });
+        console.log("Data received:", req.body);
+
+        // We only save the three fields we need
+        const { fullName, email, memberType } = req.body;
+
+        if (!fullName || !email || !memberType) {
+            return res.status(400).json({ error: "Please fill in all required fields." });
+        }
+
+        const newUser = new User({ fullName, email, memberType });
         await newUser.save();
+        
         res.status(201).json({ message: "Registration Successful!" });
     } catch (err) {
-        res.status(400).json({ error: "Email already exists or invalid data." });
+        console.error("Error:", err);
+        if (err.code === 11000) {
+            return res.status(400).json({ error: "This email is already registered." });
+        }
+        res.status(400).json({ error: "Registration failed: " + err.message });
     }
 });
 
-// 2. Admin Login Route (Simple implementation)
+// Admin Login Route
 app.post('/api/admin-login', async (req, res) => {
     const { username, password } = req.body;
-    // NOTE: In production, use an Admin collection with hashed passwords
     if (username === 'admin' && password === 'RYV@2024') {
         res.json({ success: true, message: "Welcome Admin" });
     } else {
@@ -47,7 +61,7 @@ app.post('/api/admin-login', async (req, res) => {
     }
 });
 
-// 3. Get All Users Route (For Admin Panel)
+// Get All Users Route
 app.get('/api/users', async (req, res) => {
     try {
         const users = await User.find().sort({ createdAt: -1 });
@@ -57,10 +71,14 @@ app.get('/api/users', async (req, res) => {
     }
 });
 
-// 4. Delete User Route
+// Delete User Route
 app.delete('/api/users/:id', async (req, res) => {
-    await User.findByIdAndDelete(req.params.id);
-    res.json({ message: "User deleted successfully" });
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.json({ message: "User deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ error: "Error deleting user" });
+    }
 });
 
 const PORT = process.env.PORT || 5000;
