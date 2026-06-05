@@ -28,13 +28,19 @@ const User = mongoose.model('User', userSchema);
 app.post('/api/register', async (req, res) => {
     try {
         const { fullName, email } = req.body;
+        console.log("Registering:", email); // Log to terminal
         const newUser = new User({ fullName, email });
         await newUser.save();
         res.status(201).json({ message: "Registration Successful!" });
     } catch (err) {
-        res.status(400).json({ error: "Email already exists or invalid data." });
+        console.error("DB Error:", err);
+        if (err.code === 11000) {
+            return res.status(400).json({ error: "This email is already registered." });
+        }
+        res.status(400).json({ error: "Server Error: " + err.message });
     }
 });
+
 
 // 2. Admin Login Route (Simple implementation)
 app.post('/api/admin-login', async (req, res) => {

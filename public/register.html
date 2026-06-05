@@ -118,7 +118,7 @@
         Success! Welcome to the movement.
     </div>
 
-    <script>
+        <script>
         const regForm = document.getElementById('registrationForm');
         const submitBtn = document.getElementById('submitBtn');
         const toast = document.getElementById('toast');
@@ -126,7 +126,6 @@
         regForm.addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            // Change button state to loading
             submitBtn.disabled = true;
             submitBtn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin"></i> Processing...`;
 
@@ -137,35 +136,31 @@
             };
 
             try {
-                const response = await fetch('https://ryv.onrender.com/api/register', {
+                // FIX: Use relative URL /api/register
+                const response = await fetch('/api/register', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(userData)
                 });
 
                 const result = await response.json();
 
                 if (response.ok) {
-                    // Show success toast
                     toast.classList.remove('hidden');
-                    setTimeout(() => {
-                        window.location.href = 'index.html'; // Redirect to homepage
-                    }, 3000);
+                    setTimeout(() => { window.location.href = 'index.html'; }, 3000);
                 } else {
-                    alert(result.error || "Something went wrong. Please try again.");
+                    // This will now show the ACTUAL error from MongoDB (e.g. "This email is already registered")
+                    alert(result.error); 
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = `<span>Register Now</span> <i class="fa-solid fa-arrow-right"></i>`;
                 }
-
             } catch (error) {
-                console.error("Error:", error);
-                alert("Server is not running. Please start your Node.js server.");
+                alert("Cannot connect to server. Please check your connection.");
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = `<span>Register Now</span> <i class="fa-solid fa-arrow-right"></i>`;
             }
         });
     </script>
+
 </body>
 </html>
